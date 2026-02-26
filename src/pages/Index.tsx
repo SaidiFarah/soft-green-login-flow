@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.jpg";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 
@@ -8,10 +9,15 @@ const Index = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
