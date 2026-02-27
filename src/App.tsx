@@ -5,9 +5,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
-import Produits from "./pages/Produits";
-import Clients from "./pages/Clients";
+import Archives from "./pages/Archives";
+import Emplacements from "./pages/Emplacements";
+import Utilisateurs from "./pages/Utilisateurs";
+import Historique from "./pages/Historique";
+import Scanner from "./pages/Scanner";
 import Parametres from "./pages/Parametres";
+import Profil from "./pages/Profil";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
 
@@ -23,9 +27,13 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/produits" element={<Produits />} />
-            <Route path="/clients" element={<Clients />} />
+            <Route path="/archives" element={<Archives />} />
+            <Route path="/emplacements" element={<Emplacements />} />
+            <Route path="/scanner" element={<Scanner />} />
+            <Route path="/historique" element={<Historique />} />
+            <Route path="/utilisateurs" element={<Utilisateurs />} />
             <Route path="/parametres" element={<Parametres />} />
+            <Route path="/profil" element={<Profil />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
