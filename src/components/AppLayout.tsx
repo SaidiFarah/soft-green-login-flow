@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import { Bell } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Tableau de bord",
@@ -10,7 +11,6 @@ const pageTitles: Record<string, string> = {
   "/scanner": "Scanner",
   "/historique": "Historique",
   "/utilisateurs": "Utilisateurs",
-  "/parametres": "Paramètres",
   "/profil": "Mon Profil",
 };
 
@@ -29,7 +29,8 @@ export function AppLayout() {
               <div className="h-5 w-px bg-border hidden sm:block" />
               <span className="text-sm font-medium text-muted-foreground hidden sm:block">{title}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <ThemeToggle />
               <button className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors relative">
                 <Bell size={18} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-destructive" />
