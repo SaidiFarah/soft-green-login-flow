@@ -141,8 +141,8 @@ const Archives = () => {
                     <td className="table-cell text-right">
                       <div className="flex justify-end gap-1">
                         <button onClick={() => setDetailDialog(a)} className="p-2 rounded-lg text-muted-foreground hover:text-info hover:bg-info/10 transition-colors"><Eye size={16} /></button>
-                        <button onClick={() => openEdit(a)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"><Pencil size={16} /></button>
-                        <button onClick={() => { setDeletingId(a.id); setDeleteOpen(true); }} className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"><Trash2 size={16} /></button>
+                        <button onClick={() => openEdit(a)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" title="Modifier"><Pencil size={16} /></button>
+                        <button onClick={() => { setDeletingId(a.id); setDeleteOpen(true); }} className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors" title="Supprimer"><Trash2 size={16} /></button>
                       </div>
                     </td>
                   </motion.tr>
