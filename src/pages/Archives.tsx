@@ -184,9 +184,9 @@ const Archives = () => {
           <DialogHeader><DialogTitle>{editing ? "Modifier l'archive" : "Nouvelle archive"}</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
             {[
-              { key: "code", label: "Code-barres", placeholder: "ARC-XXXX-XXXX" },
-              { key: "titre", label: "Titre", placeholder: "Titre du dossier" },
-              { key: "categorie", label: "Catégorie", placeholder: "Ex: Ressources Humaines" },
+              { key: "code", label: "Code à barre", placeholder: "ARC-XXXX-XXXX" },
+              { key: "titre", label: "Type d'archive", placeholder: "Type du dossier" },
+              { key: "description", label: "Description", placeholder: "Description de l'archive" },
               { key: "emplacement", label: "Emplacement", placeholder: "Rayon XX-BXX" },
               { key: "dateEntree", label: "Date d'entrée", placeholder: "JJ/MM/AAAA" },
             ].map(({ key, label, placeholder }) => (

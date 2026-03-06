@@ -22,7 +22,6 @@ const mainNav = [
 
 const adminNav = [
   { title: "Utilisateurs", url: "/utilisateurs", icon: Users },
-  { title: "Paramètres", url: "/parametres", icon: Settings },
 ];
 
 export function AppSidebar() {
