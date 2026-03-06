@@ -55,7 +55,7 @@ const Archives = () => {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ code: "", titre: "", categorie: "", emplacement: "", dateEntree: "", statut: "Disponible" });
+    setForm({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Disponible" });
     setDialogOpen(true);
   };
 
