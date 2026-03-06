@@ -134,7 +134,7 @@ const Archives = () => {
                   >
                     <td className="table-cell font-mono font-medium text-primary">{a.code}</td>
                     <td className="table-cell font-medium">{a.titre}</td>
-                    <td className="table-cell"><StatusBadge status={a.categorie} variant="neutral" /></td>
+                    <td className="table-cell"><StatusBadge status={a.description} variant="neutral" /></td>
                     <td className="table-cell text-muted-foreground">{a.emplacement}</td>
                     <td className="table-cell text-muted-foreground text-xs">{a.dateEntree}</td>
                     <td className="table-cell"><StatusBadge status={a.statut} variant={statusMap(a.statut)} /></td>
