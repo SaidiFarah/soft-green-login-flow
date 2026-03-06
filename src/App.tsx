@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/scanner" element={<Scanner />} />
             <Route path="/historique" element={<Historique />} />
             <Route path="/utilisateurs" element={<Utilisateurs />} />
-            <Route path="/parametres" element={<Parametr<Profil />} />
+            <Route path="/profil" element={<Profil />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
