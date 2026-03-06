@@ -38,7 +38,7 @@ const statusMap = (s: string) => {
 const Archives = () => {
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
-  const [filterCat, setFilterCat] = useState("Tous");
+  const [filterDesc, setFilterDesc] = useState("Tous");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [detailDialog, setDetailDialog] = useState<ArchiveItem | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
