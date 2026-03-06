@@ -27,7 +27,7 @@ const initialData: ArchiveItem[] = [
   { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", description: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
 ];
 
-const categories = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
+const descriptions = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
 const statusMap = (s: string) => {
   if (s === "Disponible") return "success" as const;
   if (s === "En sortie") return "info" as const;
