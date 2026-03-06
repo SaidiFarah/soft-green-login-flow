@@ -113,9 +113,9 @@ const Archives = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/40">
-                <th className="table-header">Code</th>
-                <th className="table-header">Titre</th>
-                <th className="table-header">Catégorie</th>
+                <th className="table-header">Code à barre</th>
+                <th className="table-header">Type d'archive</th>
+                <th className="table-header">Description</th>
                 <th className="table-header">Emplacement</th>
                 <th className="table-header">Date d'entrée</th>
                 <th className="table-header">Statut</th>
