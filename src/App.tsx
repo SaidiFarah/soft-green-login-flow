@@ -10,7 +10,7 @@ import Emplacements from "./pages/Emplacements";
 import Utilisateurs from "./pages/Utilisateurs";
 import Historique from "./pages/Historique";
 import Scanner from "./pages/Scanner";
-import Parametres from "./pages/Parametres";
+
 import Profil from "./pages/Profil";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
