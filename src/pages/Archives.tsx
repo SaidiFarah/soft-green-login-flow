@@ -88,7 +88,7 @@ const Archives = () => {
     <PageContainer
       title="Gestion des Archives"
       subtitle={`${data.length} archives enregistrées`}
-      actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Nouvelle Archive</button>}
+      actions={null}
     >
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
         <SearchBar value={search} onChange={setSearch} placeholder="Rechercher par code ou titre..." />
