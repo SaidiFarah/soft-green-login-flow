@@ -19,12 +19,12 @@ interface ArchiveItem {
 }
 
 const initialData: ArchiveItem[] = [
-  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", categorie: "Ressources Humaines", emplacement: "Rayon A1-B03", dateEntree: "15/01/2024", statut: "Disponible" },
-  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", categorie: "Juridique", emplacement: "Rayon B2-B12", dateEntree: "08/01/2024", statut: "En sortie" },
-  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", categorie: "Finance", emplacement: "Rayon C1-B05", dateEntree: "20/12/2023", statut: "En retard" },
-  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", categorie: "Administration", emplacement: "Rayon A2-B08", dateEntree: "02/02/2024", statut: "Disponible" },
-  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", categorie: "Comptabilité", emplacement: "Rayon D1-B02", dateEntree: "31/01/2024", statut: "Disponible" },
-  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", categorie: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
+  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", description: "Ressources Humaines", emplacement: "Rayon A1-B03", dateEntree: "15/01/2024", statut: "Disponible" },
+  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", description: "Juridique", emplacement: "Rayon B2-B12", dateEntree: "08/01/2024", statut: "En sortie" },
+  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", description: "Finance", emplacement: "Rayon C1-B05", dateEntree: "20/12/2023", statut: "En retard" },
+  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", description: "Administration", emplacement: "Rayon A2-B08", dateEntree: "02/02/2024", statut: "Disponible" },
+  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", description: "Comptabilité", emplacement: "Rayon D1-B02", dateEntree: "31/01/2024", statut: "Disponible" },
+  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", description: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
 ];
 
 const categories = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
