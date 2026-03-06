@@ -10,7 +10,6 @@ import Emplacements from "./pages/Emplacements";
 import Utilisateurs from "./pages/Utilisateurs";
 import Historique from "./pages/Historique";
 import Scanner from "./pages/Scanner";
-import Parametres from "./pages/Parametres";
 import Profil from "./pages/Profil";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
@@ -32,7 +31,6 @@ const App = () => (
             <Route path="/scanner" element={<Scanner />} />
             <Route path="/historique" element={<Historique />} />
             <Route path="/utilisateurs" element={<Utilisateurs />} />
-            <Route path="/parametres" element={<Parametres />} />
             <Route path="/profil" element={<Profil />} />
           </Route>
           <Route path="*" element={<NotFound />} />

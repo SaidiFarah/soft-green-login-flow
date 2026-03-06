@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Archive, MapPin, Users, History, ScanBarcode,
-  Settings, User, LogOut, ChevronDown, ShieldCheck,
+  User, LogOut, ChevronDown, ShieldCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -22,7 +22,6 @@ const mainNav = [
 
 const adminNav = [
   { title: "Utilisateurs", url: "/utilisateurs", icon: Users },
-  { title: "Paramètres", url: "/parametres", icon: Settings },
 ];
 
 export function AppSidebar() {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Eye, Filter, Archive } from "lucide-react";
+import { Pencil, Trash2, Eye, Filter, Archive } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -12,22 +12,22 @@ interface ArchiveItem {
   id: number;
   code: string;
   titre: string;
-  categorie: string;
+  description: string;
   emplacement: string;
   dateEntree: string;
   statut: string;
 }
 
 const initialData: ArchiveItem[] = [
-  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", categorie: "Ressources Humaines", emplacement: "Rayon A1-B03", dateEntree: "15/01/2024", statut: "Disponible" },
-  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", categorie: "Juridique", emplacement: "Rayon B2-B12", dateEntree: "08/01/2024", statut: "En sortie" },
-  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", categorie: "Finance", emplacement: "Rayon C1-B05", dateEntree: "20/12/2023", statut: "En retard" },
-  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", categorie: "Administration", emplacement: "Rayon A2-B08", dateEntree: "02/02/2024", statut: "Disponible" },
-  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", categorie: "Comptabilité", emplacement: "Rayon D1-B02", dateEntree: "31/01/2024", statut: "Disponible" },
-  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", categorie: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
+  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", description: "Ressources Humaines", emplacement: "Rayon A1-B03", dateEntree: "15/01/2024", statut: "Disponible" },
+  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", description: "Juridique", emplacement: "Rayon B2-B12", dateEntree: "08/01/2024", statut: "En sortie" },
+  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", description: "Finance", emplacement: "Rayon C1-B05", dateEntree: "20/12/2023", statut: "En retard" },
+  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", description: "Administration", emplacement: "Rayon A2-B08", dateEntree: "02/02/2024", statut: "Disponible" },
+  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", description: "Comptabilité", emplacement: "Rayon D1-B02", dateEntree: "31/01/2024", statut: "Disponible" },
+  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", description: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
 ];
 
-const categories = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
+const descriptions = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
 const statusMap = (s: string) => {
   if (s === "Disponible") return "success" as const;
   if (s === "En sortie") return "info" as const;
@@ -38,30 +38,30 @@ const statusMap = (s: string) => {
 const Archives = () => {
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
-  const [filterCat, setFilterCat] = useState("Tous");
+  const [filterDesc, setFilterDesc] = useState("Tous");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [detailDialog, setDetailDialog] = useState<ArchiveItem | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editing, setEditing] = useState<ArchiveItem | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ code: "", titre: "", categorie: "", emplacement: "", dateEntree: "", statut: "Disponible" });
+  const [form, setForm] = useState({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Disponible" });
 
   const filtered = data.filter((a) => {
     const matchSearch = a.code.toLowerCase().includes(search.toLowerCase()) ||
       a.titre.toLowerCase().includes(search.toLowerCase());
-    const matchCat = filterCat === "Tous" || a.categorie === filterCat;
-    return matchSearch && matchCat;
+    const matchDesc = filterDesc === "Tous" || a.description === filterDesc;
+    return matchSearch && matchDesc;
   });
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ code: "", titre: "", categorie: "", emplacement: "", dateEntree: "", statut: "Disponible" });
+    setForm({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Disponible" });
     setDialogOpen(true);
   };
 
   const openEdit = (a: ArchiveItem) => {
     setEditing(a);
-    setForm({ code: a.code, titre: a.titre, categorie: a.categorie, emplacement: a.emplacement, dateEntree: a.dateEntree, statut: a.statut });
+    setForm({ code: a.code, titre: a.titre, description: a.description, emplacement: a.emplacement, dateEntree: a.dateEntree, statut: a.statut });
     setDialogOpen(true);
   };
 
@@ -88,18 +88,18 @@ const Archives = () => {
     <PageContainer
       title="Gestion des Archives"
       subtitle={`${data.length} archives enregistrées`}
-      actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Nouvelle Archive</button>}
+      actions={null}
     >
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
         <SearchBar value={search} onChange={setSearch} placeholder="Rechercher par code ou titre..." />
         <div className="flex items-center gap-2">
           <Filter size={16} className="text-muted-foreground" />
           <div className="flex gap-1 flex-wrap">
-            {categories.map((c) => (
+            {descriptions.map((c) => (
               <button
                 key={c}
-                onClick={() => setFilterCat(c)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filterCat === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+                onClick={() => setFilterDesc(c)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filterDesc === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
               >
                 {c}
               </button>
@@ -113,9 +113,9 @@ const Archives = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/40">
-                <th className="table-header">Code</th>
-                <th className="table-header">Titre</th>
-                <th className="table-header">Catégorie</th>
+                <th className="table-header">Code à barre</th>
+                <th className="table-header">Type d'archive</th>
+                <th className="table-header">Description</th>
                 <th className="table-header">Emplacement</th>
                 <th className="table-header">Date d'entrée</th>
                 <th className="table-header">Statut</th>
@@ -134,15 +134,15 @@ const Archives = () => {
                   >
                     <td className="table-cell font-mono font-medium text-primary">{a.code}</td>
                     <td className="table-cell font-medium">{a.titre}</td>
-                    <td className="table-cell"><StatusBadge status={a.categorie} variant="neutral" /></td>
+                    <td className="table-cell"><StatusBadge status={a.description} variant="neutral" /></td>
                     <td className="table-cell text-muted-foreground">{a.emplacement}</td>
                     <td className="table-cell text-muted-foreground text-xs">{a.dateEntree}</td>
                     <td className="table-cell"><StatusBadge status={a.statut} variant={statusMap(a.statut)} /></td>
                     <td className="table-cell text-right">
                       <div className="flex justify-end gap-1">
                         <button onClick={() => setDetailDialog(a)} className="p-2 rounded-lg text-muted-foreground hover:text-info hover:bg-info/10 transition-colors"><Eye size={16} /></button>
-                        <button onClick={() => openEdit(a)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"><Pencil size={16} /></button>
-                        <button onClick={() => { setDeletingId(a.id); setDeleteOpen(true); }} className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"><Trash2 size={16} /></button>
+                        <button onClick={() => openEdit(a)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" title="Modifier"><Pencil size={16} /></button>
+                        <button onClick={() => { setDeletingId(a.id); setDeleteOpen(true); }} className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors" title="Supprimer"><Trash2 size={16} /></button>
                       </div>
                     </td>
                   </motion.tr>
@@ -161,9 +161,9 @@ const Archives = () => {
           {detailDialog && (
             <div className="space-y-3 py-2">
               {[
-                ["Code", detailDialog.code],
-                ["Titre", detailDialog.titre],
-                ["Catégorie", detailDialog.categorie],
+                ["Code à barre", detailDialog.code],
+                ["Type d'archive", detailDialog.titre],
+                ["Description", detailDialog.description],
                 ["Emplacement", detailDialog.emplacement],
                 ["Date d'entrée", detailDialog.dateEntree],
                 ["Statut", detailDialog.statut],
@@ -184,9 +184,9 @@ const Archives = () => {
           <DialogHeader><DialogTitle>{editing ? "Modifier l'archive" : "Nouvelle archive"}</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
             {[
-              { key: "code", label: "Code-barres", placeholder: "ARC-XXXX-XXXX" },
-              { key: "titre", label: "Titre", placeholder: "Titre du dossier" },
-              { key: "categorie", label: "Catégorie", placeholder: "Ex: Ressources Humaines" },
+              { key: "code", label: "Code à barre", placeholder: "ARC-XXXX-XXXX" },
+              { key: "titre", label: "Type d'archive", placeholder: "Type du dossier" },
+              { key: "description", label: "Description", placeholder: "Description de l'archive" },
               { key: "emplacement", label: "Emplacement", placeholder: "Rayon XX-BXX" },
               { key: "dateEntree", label: "Date d'entrée", placeholder: "JJ/MM/AAAA" },
             ].map(({ key, label, placeholder }) => (
