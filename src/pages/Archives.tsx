@@ -12,7 +12,7 @@ interface ArchiveItem {
   id: number;
   code: string;
   titre: string;
-  categorie: string;
+  description: string;
   emplacement: string;
   dateEntree: string;
   statut: string;
