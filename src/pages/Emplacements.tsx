@@ -113,36 +113,19 @@ const Emplacements = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader><DialogTitle>{editing ? "Modifier" : "Nouvel emplacement"}</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-foreground">Type</label>
-              <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value as Emplacement["type"] })} className="input-field">
-                <option>Dépôt</option><option>Rayon</option><option>Boîte</option>
-              </select>
-            </div>
             {[
               { key: "code", label: "Code" },
               { key: "nom", label: "Nom" },
-              { key: "parent", label: "Parent" },
             ].map(({ key, label }) => (
               <div key={key} className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">{label}</label>
                 <input value={form[key as keyof typeof form]} onChange={(e) => setForm({ ...form, [key]: e.target.value })} className="input-field" />
               </div>
             ))}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Capacité</label>
-                <input type="number" value={form.capacite} onChange={(e) => setForm({ ...form, capacite: e.target.value })} className="input-field" />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Occupé</label>
-                <input type="number" value={form.occupe} onChange={(e) => setForm({ ...form, occupe: e.target.value })} className="input-field" />
-              </div>
-            </div>
           </div>
-          <DialogFooter>
-            <button onClick={() => setDialogOpen(false)} className="btn-secondary">Annuler</button>
-            <button onClick={handleSave} className="btn-primary">{editing ? "Enregistrer" : "Ajouter"}</button>
+          <DialogFooter className="grid grid-cols-2 gap-3">
+            <button onClick={() => setDialogOpen(false)} className="btn-secondary h-11 w-full">Annuler</button>
+            <button onClick={handleSave} className="btn-primary h-11 w-full">{editing ? "Enregistrer" : "Ajouter"}</button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
