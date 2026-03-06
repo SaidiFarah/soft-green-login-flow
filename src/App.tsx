@@ -10,7 +10,8 @@ import Emplacements from "./pages/Emplacements";
 import Utilisateurs from "./pages/Utilisateurs";
 import Historique from "./pages/Historique";
 import Scanner from "./pages/Scanner";
- import NotFound from "./pages/NotFound";
+import Profil from "./pages/Profil";
+import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
 
 const queryClient = new QueryClient();
