@@ -61,7 +61,7 @@ const Archives = () => {
 
   const openEdit = (a: ArchiveItem) => {
     setEditing(a);
-    setForm({ code: a.code, titre: a.titre, categorie: a.categorie, emplacement: a.emplacement, dateEntree: a.dateEntree, statut: a.statut });
+    setForm({ code: a.code, titre: a.titre, description: a.description, emplacement: a.emplacement, dateEntree: a.dateEntree, statut: a.statut });
     setDialogOpen(true);
   };
 
