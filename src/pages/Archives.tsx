@@ -161,9 +161,9 @@ const Archives = () => {
           {detailDialog && (
             <div className="space-y-3 py-2">
               {[
-                ["Code", detailDialog.code],
-                ["Titre", detailDialog.titre],
-                ["Catégorie", detailDialog.categorie],
+                ["Code à barre", detailDialog.code],
+                ["Type d'archive", detailDialog.titre],
+                ["Description", detailDialog.description],
                 ["Emplacement", detailDialog.emplacement],
                 ["Date d'entrée", detailDialog.dateEntree],
                 ["Statut", detailDialog.statut],
