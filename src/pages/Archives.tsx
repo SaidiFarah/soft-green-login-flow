@@ -95,11 +95,11 @@ const Archives = () => {
         <div className="flex items-center gap-2">
           <Filter size={16} className="text-muted-foreground" />
           <div className="flex gap-1 flex-wrap">
-            {categories.map((c) => (
+            {descriptions.map((c) => (
               <button
                 key={c}
-                onClick={() => setFilterCat(c)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filterCat === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+                onClick={() => setFilterDesc(c)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filterDesc === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
               >
                 {c}
               </button>
