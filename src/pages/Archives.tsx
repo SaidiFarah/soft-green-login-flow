@@ -49,7 +49,7 @@ const Archives = () => {
   const filtered = data.filter((a) => {
     const matchSearch = a.code.toLowerCase().includes(search.toLowerCase()) ||
       a.titre.toLowerCase().includes(search.toLowerCase());
-    const matchCat = filterCat === "Tous" || a.categorie === filterCat;
+    const matchDesc = filterDesc === "Tous" || a.description === filterDesc;
     return matchSearch && matchCat;
   });
 
