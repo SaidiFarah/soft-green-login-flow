@@ -50,7 +50,7 @@ const Archives = () => {
     const matchSearch = a.code.toLowerCase().includes(search.toLowerCase()) ||
       a.titre.toLowerCase().includes(search.toLowerCase());
     const matchDesc = filterDesc === "Tous" || a.description === filterDesc;
-    return matchSearch && matchCat;
+    return matchSearch && matchDesc;
   });
 
   const openAdd = () => {
