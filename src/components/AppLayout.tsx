@@ -31,10 +31,6 @@ export function AppLayout() {
             </div>
             <div className="flex items-center gap-1">
               <ThemeToggle />
-              <button className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors relative">
-                <Bell size={18} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-destructive" />
-              </button>
             </div>
           </header>
           <main className="flex-1 p-4 sm:p-6 bg-background overflow-auto">
