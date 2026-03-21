@@ -184,7 +184,7 @@ const Archives = () => {
               { key: "code", label: "Code à barre", placeholder: "ARC-XXXX-XXXX" },
               { key: "titre", label: "Type d'archive", placeholder: "Type du dossier" },
               { key: "description", label: "Description", placeholder: "Description de l'archive" },
-              { key: "emplacement", label: "Emplacement", placeholder: "Rayon XX-BXX" },
+              { key: "emplacement", label: "Emplacement", placeholder: "Zone XX-BXX" },
               { key: "dateEntree", label: "Date d'entrée", placeholder: "JJ/MM/AAAA" },
             ].map(({ key, label, placeholder }) => (
               <div key={key} className="space-y-1.5">

@@ -1,4 +1,4 @@
-import { Archive, ArrowDownRight, ArrowUpRight, Clock, AlertTriangle, BarChart3, ArrowRight } from "lucide-react";
+import { Archive, ArrowDownRight, ArrowUpRight, Clock, AlertTriangle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageContainer from "@/components/PageContainer";
