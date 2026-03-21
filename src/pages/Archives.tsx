@@ -43,7 +43,7 @@ const Archives = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editing, setEditing] = useState<ArchiveItem | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Disponible" });
+  const [form, setForm] = useState({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Actif" });
 
   const filtered = data.filter((a) => {
     const matchSearch = a.code.toLowerCase().includes(search.toLowerCase()) ||
