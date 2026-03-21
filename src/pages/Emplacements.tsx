@@ -87,10 +87,6 @@ const Emplacements = () => {
                       <p className="text-xs font-mono text-muted-foreground">{e.code}</p>
                     </div>
                   </div>
-                  <div className="flex gap-1">
-                    <button onClick={() => openEdit(e)} className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"><Pencil size={14} /></button>
-                    <button onClick={() => { setDeletingId(e.id); setDeleteOpen(true); }} className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"><Trash2 size={14} /></button>
-                  </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
