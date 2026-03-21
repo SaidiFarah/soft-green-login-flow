@@ -1,5 +1,5 @@
 import {
-  LayoutDashboard, Archive, MapPin, Users, History, ScanBarcode,
+  LayoutDashboard, Archive, MapPin, Users, History, Boxes,
   LogOut,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
