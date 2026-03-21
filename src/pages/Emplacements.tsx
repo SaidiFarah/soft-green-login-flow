@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import PageContainer from "@/components/PageContainer";
 import SearchBar from "@/components/SearchBar";
@@ -10,20 +11,22 @@ interface Emplacement {
   id: number;
   code: string;
   nom: string;
+  label: string;
   nombreZones: number;
   zonesOccupees: number;
 }
 
 const initial: Emplacement[] = [
-  { id: 1, code: "EMP-01", nom: "Emplacement A — Administration", nombreZones: 8, zonesOccupees: 5 },
-  { id: 2, code: "EMP-02", nom: "Emplacement B — Ressources Humaines", nombreZones: 6, zonesOccupees: 4 },
-  { id: 3, code: "EMP-03", nom: "Emplacement C — Finance & Comptabilité", nombreZones: 10, zonesOccupees: 9 },
-  { id: 4, code: "EMP-04", nom: "Emplacement D — Juridique", nombreZones: 5, zonesOccupees: 3 },
-  { id: 5, code: "EMP-05", nom: "Emplacement E — Logistique", nombreZones: 7, zonesOccupees: 2 },
-  { id: 6, code: "EMP-06", nom: "Emplacement F — Direction Générale", nombreZones: 4, zonesOccupees: 4 },
+  { id: 1, code: "EMP-01", nom: "Emplacement A — Administration", label: "Administration", nombreZones: 3, zonesOccupees: 1 },
+  { id: 2, code: "EMP-02", nom: "Emplacement B — Ressources Humaines", label: "Ressources Humaines", nombreZones: 3, zonesOccupees: 1 },
+  { id: 3, code: "EMP-03", nom: "Emplacement C — Finance & Comptabilité", label: "Finance & Comptabilité", nombreZones: 3, zonesOccupees: 2 },
+  { id: 4, code: "EMP-04", nom: "Emplacement D — Juridique", label: "Juridique", nombreZones: 2, zonesOccupees: 1 },
+  { id: 5, code: "EMP-05", nom: "Emplacement E — Logistique", label: "Logistique", nombreZones: 1, zonesOccupees: 0 },
+  { id: 6, code: "EMP-06", nom: "Emplacement F — Direction Générale", label: "Direction Générale", nombreZones: 2, zonesOccupees: 1 },
 ];
 
 const Emplacements = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState(initial);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -38,7 +41,7 @@ const Emplacements = () => {
 
   const handleSave = () => {
     if (!form.code || !form.nom) return;
-    setData((p) => [...p, { id: Math.max(...p.map((e) => e.id), 0) + 1, code: form.code, nom: form.nom, nombreZones: 0, zonesOccupees: 0 }]);
+    setData((p) => [...p, { id: Math.max(...p.map((e) => e.id), 0) + 1, code: form.code, nom: form.nom, label: form.nom, nombreZones: 0, zonesOccupees: 0 }]);
     setDialogOpen(false);
   };
 
@@ -46,7 +49,7 @@ const Emplacements = () => {
   const occupancyColor = (pct: number) => pct >= 90 ? "bg-destructive" : pct >= 70 ? "bg-warning" : "bg-success";
 
   return (
-    <PageContainer title="Emplacements" subtitle="Chaque emplacement contient plusieurs zones de stockage" actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Ajouter</button>}>
+    <PageContainer title="Emplacements" subtitle="Cliquez sur un emplacement pour voir ses zones" actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Ajouter</button>}>
       <SearchBar value={search} onChange={setSearch} placeholder="Rechercher un emplacement..." />
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -60,12 +63,15 @@ const Emplacements = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ delay: i * 0.05 }}
-                className="section-card p-5 hover:card-elevated-hover transition-shadow"
+                onClick={() => navigate(`/scanner?emplacement=${encodeURIComponent(e.label)}`)}
+                className="section-card p-5 hover:card-elevated-hover transition-shadow cursor-pointer group"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary"><MapPin size={18} /></div>
+                  <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <MapPin size={18} />
+                  </div>
                   <div>
-                    <p className="font-semibold text-foreground text-sm">{e.nom}</p>
+                    <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">{e.nom}</p>
                     <p className="text-xs font-mono text-muted-foreground">{e.code}</p>
                   </div>
                 </div>
