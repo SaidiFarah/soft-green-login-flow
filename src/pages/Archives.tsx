@@ -29,9 +29,8 @@ const initialData: ArchiveItem[] = [
 
 const descriptions = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
 const statusMap = (s: string) => {
-  if (s === "Disponible") return "success" as const;
-  if (s === "En sortie") return "info" as const;
-  if (s === "En retard") return "danger" as const;
+  if (s === "Actif") return "success" as const;
+  if (s === "Inactif") return "danger" as const;
   return "neutral" as const;
 };
 
