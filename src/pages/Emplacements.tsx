@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Pencil, Trash2, MapPin, Layers, Box } from "lucide-react";
+import { Plus, MapPin, Layers, Box } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -86,10 +86,6 @@ const Emplacements = () => {
                       <p className="font-semibold text-foreground text-sm">{e.nom}</p>
                       <p className="text-xs font-mono text-muted-foreground">{e.code}</p>
                     </div>
-                  </div>
-                  <div className="flex gap-1">
-                    <button onClick={() => openEdit(e)} className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"><Pencil size={14} /></button>
-                    <button onClick={() => { setDeletingId(e.id); setDeleteOpen(true); }} className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"><Trash2 size={14} /></button>
                   </div>
                 </div>
                 <div className="space-y-2">

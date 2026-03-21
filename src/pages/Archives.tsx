@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, Trash2, Eye, Filter, Archive } from "lucide-react";
+import { Eye, Filter, Archive } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -19,19 +19,18 @@ interface ArchiveItem {
 }
 
 const initialData: ArchiveItem[] = [
-  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", description: "Ressources Humaines", emplacement: "Rayon A1-B03", dateEntree: "15/01/2024", statut: "Disponible" },
-  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", description: "Juridique", emplacement: "Rayon B2-B12", dateEntree: "08/01/2024", statut: "En sortie" },
-  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", description: "Finance", emplacement: "Rayon C1-B05", dateEntree: "20/12/2023", statut: "En retard" },
-  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", description: "Administration", emplacement: "Rayon A2-B08", dateEntree: "02/02/2024", statut: "Disponible" },
-  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", description: "Comptabilité", emplacement: "Rayon D1-B02", dateEntree: "31/01/2024", statut: "Disponible" },
-  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", description: "Ressources Humaines", emplacement: "Rayon A1-B07", dateEntree: "15/12/2023", statut: "En sortie" },
+  { id: 1, code: "ARC-2024-0142", titre: "Dossier RH - Recrutement Q1", description: "Ressources Humaines", emplacement: "Zone A1-B03", dateEntree: "15/01/2024", statut: "Actif" },
+  { id: 2, code: "ARC-2024-0098", titre: "Contrats Fournisseurs 2024", description: "Juridique", emplacement: "Zone B2-B12", dateEntree: "08/01/2024", statut: "Inactif" },
+  { id: 3, code: "ARC-2023-0321", titre: "Rapport Financier Annuel 2023", description: "Finance", emplacement: "Zone C1-B05", dateEntree: "20/12/2023", statut: "Inactif" },
+  { id: 4, code: "ARC-2024-0201", titre: "PV Réunion Direction Février", description: "Administration", emplacement: "Zone A2-B08", dateEntree: "02/02/2024", statut: "Actif" },
+  { id: 5, code: "ARC-2024-0055", titre: "Factures Clients Janvier", description: "Comptabilité", emplacement: "Zone D1-B02", dateEntree: "31/01/2024", statut: "Actif" },
+  { id: 6, code: "ARC-2023-0299", titre: "Plan Formation 2024", description: "Ressources Humaines", emplacement: "Zone A1-B07", dateEntree: "15/12/2023", statut: "Inactif" },
 ];
 
 const descriptions = ["Tous", "Ressources Humaines", "Juridique", "Finance", "Administration", "Comptabilité"];
 const statusMap = (s: string) => {
-  if (s === "Disponible") return "success" as const;
-  if (s === "En sortie") return "info" as const;
-  if (s === "En retard") return "danger" as const;
+  if (s === "Actif") return "success" as const;
+  if (s === "Inactif") return "danger" as const;
   return "neutral" as const;
 };
 
@@ -44,7 +43,7 @@ const Archives = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editing, setEditing] = useState<ArchiveItem | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Disponible" });
+  const [form, setForm] = useState({ code: "", titre: "", description: "", emplacement: "", dateEntree: "", statut: "Actif" });
 
   const filtered = data.filter((a) => {
     const matchSearch = a.code.toLowerCase().includes(search.toLowerCase()) ||
@@ -141,8 +140,6 @@ const Archives = () => {
                     <td className="table-cell text-right">
                       <div className="flex justify-end gap-1">
                         <button onClick={() => setDetailDialog(a)} className="p-2 rounded-lg text-muted-foreground hover:text-info hover:bg-info/10 transition-colors"><Eye size={16} /></button>
-                        <button onClick={() => openEdit(a)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors" title="Modifier"><Pencil size={16} /></button>
-                        <button onClick={() => { setDeletingId(a.id); setDeleteOpen(true); }} className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors" title="Supprimer"><Trash2 size={16} /></button>
                       </div>
                     </td>
                   </motion.tr>
@@ -187,7 +184,7 @@ const Archives = () => {
               { key: "code", label: "Code à barre", placeholder: "ARC-XXXX-XXXX" },
               { key: "titre", label: "Type d'archive", placeholder: "Type du dossier" },
               { key: "description", label: "Description", placeholder: "Description de l'archive" },
-              { key: "emplacement", label: "Emplacement", placeholder: "Rayon XX-BXX" },
+              { key: "emplacement", label: "Emplacement", placeholder: "Zone XX-BXX" },
               { key: "dateEntree", label: "Date d'entrée", placeholder: "JJ/MM/AAAA" },
             ].map(({ key, label, placeholder }) => (
               <div key={key} className="space-y-1.5">
