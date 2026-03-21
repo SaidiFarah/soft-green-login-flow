@@ -10,24 +10,19 @@ import EmptyState from "@/components/EmptyState";
 interface Emplacement {
   id: number;
   code: string;
-  type: "Dépôt" | "Rayon" | "Boîte";
   nom: string;
-  parent: string;
-  capacite: number;
-  occupe: number;
+  nombreZones: number;
+  zonesOccupees: number;
 }
 
 const initial: Emplacement[] = [
-  { id: 1, code: "DEP-01", type: "Dépôt", nom: "Dépôt Principal", parent: "—", capacite: 500, occupe: 342 },
-  { id: 2, code: "RAY-A1", type: "Rayon", nom: "Rayon A1 - RH", parent: "DEP-01", capacite: 50, occupe: 38 },
-  { id: 3, code: "RAY-B2", type: "Rayon", nom: "Rayon B2 - Juridique", parent: "DEP-01", capacite: 50, occupe: 45 },
-  { id: 4, code: "BOX-A1-03", type: "Boîte", nom: "Boîte 03", parent: "RAY-A1", capacite: 10, occupe: 8 },
-  { id: 5, code: "BOX-B2-12", type: "Boîte", nom: "Boîte 12", parent: "RAY-B2", capacite: 10, occupe: 10 },
-  { id: 6, code: "DEP-02", type: "Dépôt", nom: "Dépôt Secondaire", parent: "—", capacite: 200, occupe: 67 },
+  { id: 1, code: "EMP-01", nom: "Emplacement A — Administration", nombreZones: 8, zonesOccupees: 5 },
+  { id: 2, code: "EMP-02", nom: "Emplacement B — Ressources Humaines", nombreZones: 6, zonesOccupees: 4 },
+  { id: 3, code: "EMP-03", nom: "Emplacement C — Finance & Comptabilité", nombreZones: 10, zonesOccupees: 9 },
+  { id: 4, code: "EMP-04", nom: "Emplacement D — Juridique", nombreZones: 5, zonesOccupees: 3 },
+  { id: 5, code: "EMP-05", nom: "Emplacement E — Logistique", nombreZones: 7, zonesOccupees: 2 },
+  { id: 6, code: "EMP-06", nom: "Emplacement F — Direction Générale", nombreZones: 4, zonesOccupees: 4 },
 ];
-
-const typeIcons = { "Dépôt": MapPin, "Rayon": Layers, "Boîte": Box };
-const typeColors = { "Dépôt": "bg-primary/10 text-primary", "Rayon": "bg-info/10 text-info", "Boîte": "bg-warning/10 text-warning" };
 
 const Emplacements = () => {
   const [data, setData] = useState(initial);
