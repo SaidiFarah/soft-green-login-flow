@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, Trash2, Eye, Filter, Archive } from "lucide-react";
+import { Eye, Filter, Archive } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
