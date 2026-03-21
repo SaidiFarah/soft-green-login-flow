@@ -16,7 +16,7 @@ const mainNav = [
   { title: "Tableau de bord", url: "/dashboard", icon: LayoutDashboard },
   { title: "Archives", url: "/archives", icon: Archive },
   { title: "Emplacements", url: "/emplacements", icon: MapPin },
-  { title: "Scanner", url: "/scanner", icon: ScanBarcode },
+  { title: "Zones", url: "/scanner", icon: ScanBarcode },
   { title: "Historique", url: "/historique", icon: History },
 ];
 
