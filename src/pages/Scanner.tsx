@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Archive, MapPin, CheckCircle, XCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, Archive, MapPin, CheckCircle, XCircle, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import PageContainer from "@/components/PageContainer";
@@ -12,21 +13,34 @@ interface Zone {
   code: string;
   nom: string;
   type: string;
+  emplacement: string;
   capacite: number;
   occupe: number;
   statut: "Disponible" | "Occupée" | "Pleine";
 }
 
 const initial: Zone[] = [
-  { id: 1, code: "Z-01", nom: "Zone Factures", type: "Factures", capacite: 120, occupe: 45, statut: "Disponible" },
-  { id: 2, code: "Z-02", nom: "Zone Administrative", type: "Documents administratifs", capacite: 80, occupe: 80, statut: "Pleine" },
-  { id: 3, code: "Z-03", nom: "Zone Juridique", type: "Contrats & Juridique", capacite: 100, occupe: 67, statut: "Disponible" },
-  { id: 4, code: "Z-04", nom: "Zone RH", type: "Ressources Humaines", capacite: 60, occupe: 58, statut: "Occupée" },
-  { id: 5, code: "Z-05", nom: "Zone Comptabilité", type: "Comptabilité", capacite: 90, occupe: 12, statut: "Disponible" },
-  { id: 6, code: "Z-06", nom: "Zone Technique", type: "Documents techniques", capacite: 50, occupe: 50, statut: "Pleine" },
+  { id: 1, code: "Z-01", nom: "Zone Factures", type: "Factures", emplacement: "Administration", capacite: 120, occupe: 45, statut: "Disponible" },
+  { id: 2, code: "Z-02", nom: "Zone Courriers", type: "Courriers officiels", emplacement: "Administration", capacite: 80, occupe: 80, statut: "Pleine" },
+  { id: 3, code: "Z-03", nom: "Zone PV Réunions", type: "Procès-verbaux", emplacement: "Administration", capacite: 60, occupe: 30, statut: "Disponible" },
+  { id: 4, code: "Z-04", nom: "Zone Dossiers Employés", type: "Dossiers personnel", emplacement: "Ressources Humaines", capacite: 100, occupe: 67, statut: "Disponible" },
+  { id: 5, code: "Z-05", nom: "Zone Contrats Travail", type: "Contrats", emplacement: "Ressources Humaines", capacite: 60, occupe: 58, statut: "Occupée" },
+  { id: 6, code: "Z-06", nom: "Zone Formations", type: "Plans de formation", emplacement: "Ressources Humaines", capacite: 40, occupe: 12, statut: "Disponible" },
+  { id: 7, code: "Z-07", nom: "Zone Bilans", type: "Bilans financiers", emplacement: "Finance & Comptabilité", capacite: 90, occupe: 88, statut: "Occupée" },
+  { id: 8, code: "Z-08", nom: "Zone Factures Fournisseurs", type: "Factures", emplacement: "Finance & Comptabilité", capacite: 110, occupe: 110, statut: "Pleine" },
+  { id: 9, code: "Z-09", nom: "Zone Déclarations Fiscales", type: "Fiscalité", emplacement: "Finance & Comptabilité", capacite: 70, occupe: 45, statut: "Disponible" },
+  { id: 10, code: "Z-10", nom: "Zone Contrats Clients", type: "Contrats", emplacement: "Juridique", capacite: 80, occupe: 35, statut: "Disponible" },
+  { id: 11, code: "Z-11", nom: "Zone Litiges", type: "Dossiers juridiques", emplacement: "Juridique", capacite: 50, occupe: 50, statut: "Pleine" },
+  { id: 12, code: "Z-12", nom: "Zone Bons de Livraison", type: "Logistique", emplacement: "Logistique", capacite: 90, occupe: 22, statut: "Disponible" },
+  { id: 13, code: "Z-13", nom: "Zone Notes Direction", type: "Notes internes", emplacement: "Direction Générale", capacite: 40, occupe: 40, statut: "Pleine" },
+  { id: 14, code: "Z-14", nom: "Zone Rapports Stratégiques", type: "Rapports", emplacement: "Direction Générale", capacite: 50, occupe: 28, statut: "Disponible" },
 ];
 
 const Zones = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const emplacementFilter = searchParams.get("emplacement");
+
   const [data, setData] = useState(initial);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -35,7 +49,9 @@ const Zones = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [form, setForm] = useState({ code: "", nom: "", type: "", capacite: "", occupe: "" });
 
-  const filtered = data.filter((z) =>
+  const baseData = emplacementFilter ? data.filter((z) => z.emplacement === emplacementFilter) : data;
+
+  const filtered = baseData.filter((z) =>
     z.nom.toLowerCase().includes(search.toLowerCase()) ||
     z.code.toLowerCase().includes(search.toLowerCase()) ||
     z.type.toLowerCase().includes(search.toLowerCase())
@@ -64,10 +80,11 @@ const Zones = () => {
     const cap = Number(form.capacite) || 0;
     const occ = Number(form.occupe) || 0;
     const statut = getStatut(occ, cap);
+    const emp = emplacementFilter || "";
     if (editing) {
       setData((p) => p.map((z) => z.id === editing.id ? { ...z, code: form.code, nom: form.nom, type: form.type, capacite: cap, occupe: occ, statut } : z));
     } else {
-      setData((p) => [...p, { id: Math.max(...p.map((z) => z.id), 0) + 1, code: form.code, nom: form.nom, type: form.type, capacite: cap, occupe: occ, statut }]);
+      setData((p) => [...p, { id: Math.max(...p.map((z) => z.id), 0) + 1, code: form.code, nom: form.nom, type: form.type, emplacement: emp, capacite: cap, occupe: occ, statut }]);
     }
     setDialogOpen(false);
   };
@@ -93,31 +110,47 @@ const Zones = () => {
   const StatutIcon = ({ statut }: { statut: Zone["statut"] }) =>
     statut === "Disponible" ? <CheckCircle size={14} /> : <XCircle size={14} />;
 
+  const subtitle = emplacementFilter
+    ? `Zones de l'emplacement « ${emplacementFilter} »`
+    : "Gérez les zones dédiées au stockage des archives par type";
+
   return (
     <PageContainer
-      title="Zones de stockage"
-      subtitle="Gérez les zones dédiées au stockage des archives par type"
+      title={emplacementFilter ? `Zones — ${emplacementFilter}` : "Zones de stockage"}
+      subtitle={subtitle}
       actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Ajouter une zone</button>}
     >
-      {/* Info banner */}
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="section-card p-4 border-l-4 border-primary"
-      >
-        <p className="text-sm text-muted-foreground">
-          Chaque zone correspond à un type précis d'archive. Le système indique les zones <span className="text-success font-medium">disponibles</span> et celles déjà <span className="text-destructive font-medium">occupées</span>. Vous pouvez ajouter, modifier ou supprimer chaque zone.
-        </p>
-      </motion.div>
+      {emplacementFilter && (
+        <motion.button
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          onClick={() => navigate("/emplacements")}
+          className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors mb-1"
+        >
+          <ArrowLeft size={16} /> Retour aux emplacements
+        </motion.button>
+      )}
+
+      {!emplacementFilter && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="section-card p-4 border-l-4 border-primary"
+        >
+          <p className="text-sm text-muted-foreground">
+            Chaque zone correspond à un type précis d'archive. Le système indique les zones <span className="text-success font-medium">disponibles</span> et celles déjà <span className="text-destructive font-medium">occupées</span>.
+          </p>
+        </motion.div>
+      )}
 
       <SearchBar value={search} onChange={setSearch} placeholder="Rechercher une zone..." />
 
       {/* KPI row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "Total zones", value: data.length, icon: MapPin, color: "text-primary" },
-          { label: "Disponibles", value: data.filter((z) => z.statut === "Disponible").length, icon: CheckCircle, color: "text-success" },
-          { label: "Pleines", value: data.filter((z) => z.statut === "Pleine").length, icon: XCircle, color: "text-destructive" },
+          { label: "Total zones", value: baseData.length, icon: MapPin, color: "text-primary" },
+          { label: "Disponibles", value: baseData.filter((z) => z.statut === "Disponible").length, icon: CheckCircle, color: "text-success" },
+          { label: "Pleines", value: baseData.filter((z) => z.statut === "Pleine").length, icon: XCircle, color: "text-destructive" },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="section-card p-4 flex items-center gap-3">
             <div className={`p-2.5 rounded-lg bg-muted ${kpi.color}`}><kpi.icon size={20} /></div>
@@ -163,6 +196,13 @@ const Zones = () => {
                   <p className="text-xs text-muted-foreground mb-1">Type d'archive</p>
                   <p className="text-sm font-medium text-foreground">{z.type}</p>
                 </div>
+
+                {!emplacementFilter && (
+                  <div className="mb-3">
+                    <p className="text-xs text-muted-foreground mb-1">Emplacement</p>
+                    <p className="text-sm font-medium text-foreground">{z.emplacement}</p>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between mb-2">
                   <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${statutColor(z.statut)}`}>
