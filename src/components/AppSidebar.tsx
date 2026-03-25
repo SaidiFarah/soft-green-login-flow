@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Archive, MapPin, Users, History, Boxes,
-  LogOut,
+  LogOut, ShieldAlert
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ const mainNav = [
 
 const adminNav = [
   { title: "Utilisateurs", url: "/utilisateurs", icon: Users },
+  { title: "Table des rôles", url: "/roles", icon: ShieldAlert },
 ];
 
 export function AppSidebar() {
@@ -38,17 +39,14 @@ export function AppSidebar() {
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-sidebar-primary/40 to-sidebar-primary/10 blur-sm" />
             <img
               src={logo}
-              alt="El Mazraa"
+              alt="Mazeraa Archive"
               className={`relative ${collapsed ? "h-8 w-8" : "h-11 w-11"} rounded-lg object-cover ring-2 ring-sidebar-primary/30 transition-all duration-300`}
             />
           </div>
           {!collapsed && (
             <div className="min-w-0">
               <p className="text-sm font-bold text-sidebar-accent-foreground font-heading tracking-tight truncate">
-                El Mazraa
-              </p>
-              <p className="text-[10px] text-sidebar-muted tracking-wide uppercase truncate">
-                Gestion des Archives
+                Mazeraa Archive
               </p>
             </div>
           )}

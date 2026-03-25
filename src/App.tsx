@@ -11,6 +11,7 @@ import Utilisateurs from "./pages/Utilisateurs";
 import Historique from "./pages/Historique";
 import Scanner from "./pages/Scanner";
 import Profil from "./pages/Profil";
+import Roles from "./pages/Roles";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/scanner" element={<Scanner />} />
             <Route path="/historique" element={<Historique />} />
             <Route path="/utilisateurs" element={<Utilisateurs />} />
+            <Route path="/roles" element={<Roles />} />
             <Route path="/profil" element={<Profil />} />
           </Route>
           <Route path="*" element={<NotFound />} />

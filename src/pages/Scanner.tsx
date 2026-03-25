@@ -17,6 +17,7 @@ interface Zone {
   capacite: number;
   occupe: number;
   statut: "Disponible" | "Occupée" | "Pleine";
+  etat?: string;
 }
 
 const initial: Zone[] = [
@@ -47,7 +48,7 @@ const Zones = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editing, setEditing] = useState<Zone | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [form, setForm] = useState({ code: "", nom: "", type: "", capacite: "", occupe: "" });
+  const [form, setForm] = useState({ libelle: "", capacite: "", etat: "Actif" });
 
   const baseData = emplacementFilter ? data.filter((z) => z.emplacement === emplacementFilter) : data;
 
@@ -59,13 +60,13 @@ const Zones = () => {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ code: "", nom: "", type: "", capacite: "", occupe: "" });
+    setForm({ libelle: "", capacite: "", etat: "Actif" });
     setDialogOpen(true);
   };
 
   const openEdit = (z: Zone) => {
     setEditing(z);
-    setForm({ code: z.code, nom: z.nom, type: z.type, capacite: String(z.capacite), occupe: String(z.occupe) });
+    setForm({ libelle: z.nom, capacite: String(z.capacite), etat: z.etat || "Actif" });
     setDialogOpen(true);
   };
 
@@ -76,15 +77,18 @@ const Zones = () => {
   };
 
   const handleSave = () => {
-    if (!form.code || !form.nom || !form.type) return;
+    if (!form.libelle) return;
     const cap = Number(form.capacite) || 0;
-    const occ = Number(form.occupe) || 0;
+    const occ = editing ? editing.occupe : 0;
     const statut = getStatut(occ, cap);
     const emp = emplacementFilter || "";
     if (editing) {
-      setData((p) => p.map((z) => z.id === editing.id ? { ...z, code: form.code, nom: form.nom, type: form.type, capacite: cap, occupe: occ, statut } : z));
+      setData((p) => p.map((z) => z.id === editing.id ? { ...z, nom: form.libelle, capacite: cap, statut, etat: form.etat } : z));
     } else {
-      setData((p) => [...p, { id: Math.max(...p.map((z) => z.id), 0) + 1, code: form.code, nom: form.nom, type: form.type, emplacement: emp, capacite: cap, occupe: occ, statut }]);
+      setData((p) => {
+        const newId = Math.max(...p.map((z) => z.id), 0) + 1;
+        return [...p, { id: newId, code: `Z-${newId.toString().padStart(2, '0')}`, nom: form.libelle, type: "Non spécifié", emplacement: emp, capacite: cap, occupe: occ, statut, etat: form.etat }];
+      });
     }
     setDialogOpen(false);
   };
@@ -188,7 +192,6 @@ const Zones = () => {
                   </div>
                   <div className="flex gap-1">
                     <button onClick={() => openEdit(z)} className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"><Pencil size={14} /></button>
-                    <button onClick={() => { setDeletingId(z.id); setDeleteOpen(true); }} className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"><Trash2 size={14} /></button>
                   </div>
                 </div>
 
@@ -205,11 +208,16 @@ const Zones = () => {
                 )}
 
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${statutColor(z.statut)}`}>
-                    <StatutIcon statut={z.statut} />
-                    {z.statut}
-                  </span>
-                  <span className="text-xs font-medium text-foreground">{z.occupe}/{z.capacite}</span>
+                  <div className="flex gap-1.5 flex-wrap">
+                    <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${statutColor(z.statut)}`}>
+                      <StatutIcon statut={z.statut} />
+                      {z.statut}
+                    </span>
+                    <span className={`inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full border ${(!z.etat || z.etat === 'Actif') ? 'bg-blue-500/15 text-blue-600 border-blue-500/30 dark:text-blue-400' : 'bg-muted text-muted-foreground border-border'}`}>
+                      {(!z.etat || z.etat === 'Actif') ? 'Actif' : 'Inactif'}
+                    </span>
+                  </div>
+                  <span className="text-xs font-medium text-foreground whitespace-nowrap">{z.occupe}/{z.capacite}</span>
                 </div>
 
                 <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -237,11 +245,8 @@ const Zones = () => {
           </DialogHeader>
           <div className="space-y-4 py-2">
             {[
-              { key: "code", label: "Code", placeholder: "Ex: Z-07" },
-              { key: "nom", label: "Nom de la zone", placeholder: "Ex: Zone Factures" },
-              { key: "type", label: "Type d'archive", placeholder: "Ex: Factures, Contrats..." },
+              { key: "libelle", label: "Libellé", placeholder: "Ex: Zone Factures" },
               { key: "capacite", label: "Capacité", placeholder: "Ex: 100" },
-              { key: "occupe", label: "Occupée", placeholder: "Ex: 30" },
             ].map(({ key, label, placeholder }) => (
               <div key={key} className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">{label}</label>
@@ -249,10 +254,24 @@ const Zones = () => {
                   value={form[key as keyof typeof form]}
                   onChange={(e) => setForm({ ...form, [key]: e.target.value })}
                   placeholder={placeholder}
-                  className="input-field"
+                  className={`input-field ${editing ? 'opacity-60 cursor-not-allowed bg-muted' : ''}`}
+                  disabled={!!editing}
                 />
               </div>
             ))}
+            {editing && (
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-foreground">État de la zone</label>
+                <select
+                  value={form.etat}
+                  onChange={(e) => setForm({ ...form, etat: e.target.value })}
+                  className="input-field"
+                >
+                  <option value="Actif">Actif</option>
+                  <option value="Inactif">Inactif</option>
+                </select>
+              </div>
+            )}
           </div>
           <DialogFooter className="grid grid-cols-2 gap-3">
             <button onClick={() => setDialogOpen(false)} className="btn-secondary h-11 w-full">Annuler</button>

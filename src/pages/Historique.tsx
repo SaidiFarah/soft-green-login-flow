@@ -54,7 +54,6 @@ const Historique = () => {
     <PageContainer
       title="Historique & Traçabilité"
       subtitle="Journal de tous les mouvements d'archives"
-      actions={<button className="btn-secondary"><Download size={16} /> Exporter</button>}
     >
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
         <SearchBar value={search} onChange={setSearch} placeholder="Rechercher par code, agent ou titre..." />
@@ -79,7 +78,6 @@ const Historique = () => {
               <th className="table-header">Titre</th>
               <th className="table-header">Action</th>
               <th className="table-header">Agent</th>
-              <th className="table-header">Détails</th>
             </tr></thead>
             <tbody>
               {filtered.map((m, i) => (
@@ -100,7 +98,6 @@ const Historique = () => {
                   <td className="table-cell text-sm">{m.titreArchive}</td>
                   <td className="table-cell"><StatusBadge status={m.action} variant={actionColors[m.action]} /></td>
                   <td className="table-cell font-medium">{m.agent}</td>
-                  <td className="table-cell text-xs text-muted-foreground max-w-[200px] truncate">{m.details}</td>
                 </motion.tr>
               ))}
             </tbody>

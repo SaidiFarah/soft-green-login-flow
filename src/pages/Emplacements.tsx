@@ -30,18 +30,19 @@ const Emplacements = () => {
   const [data, setData] = useState(initial);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [form, setForm] = useState({ code: "", nom: "" });
+  const [form, setForm] = useState({ libelle: "" });
 
   const filtered = data.filter((e) =>
     e.code.toLowerCase().includes(search.toLowerCase()) ||
     e.nom.toLowerCase().includes(search.toLowerCase())
   );
 
-  const openAdd = () => { setForm({ code: "", nom: "" }); setDialogOpen(true); };
+  const openAdd = () => { setForm({ libelle: "" }); setDialogOpen(true); };
 
   const handleSave = () => {
-    if (!form.code || !form.nom) return;
-    setData((p) => [...p, { id: Math.max(...p.map((e) => e.id), 0) + 1, code: form.code, nom: form.nom, label: form.nom, nombreZones: 0, zonesOccupees: 0 }]);
+    if (!form.libelle) return;
+    const newId = Math.max(...data.map((e) => e.id), 0) + 1;
+    setData((p) => [...p, { id: newId, code: `EMP-${newId.toString().padStart(2, '0')}`, nom: form.libelle, label: form.libelle, nombreZones: 0, zonesOccupees: 0 }]);
     setDialogOpen(false);
   };
 
@@ -97,8 +98,7 @@ const Emplacements = () => {
           <DialogHeader><DialogTitle>Nouvel emplacement</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
             {[
-              { key: "code", label: "Code" },
-              { key: "nom", label: "Nom" },
+              { key: "libelle", label: "Libellé" },
             ].map(({ key, label }) => (
               <div key={key} className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">{label}</label>

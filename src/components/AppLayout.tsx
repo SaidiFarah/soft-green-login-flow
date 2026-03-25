@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet, useLocation } from "react-router-dom";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AIAssistant } from "@/components/AIAssistant";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Tableau de bord",
@@ -16,7 +17,7 @@ const pageTitles: Record<string, string> = {
 
 export function AppLayout() {
   const location = useLocation();
-  const title = pageTitles[location.pathname] || "El Mazraa";
+  const title = pageTitles[location.pathname] || "Mazeraa Archive";
 
   return (
     <SidebarProvider>
@@ -33,11 +34,12 @@ export function AppLayout() {
               <ThemeToggle />
             </div>
           </header>
-          <main className="flex-1 p-4 sm:p-6 bg-background overflow-auto">
+          <main className="flex-1 p-4 sm:p-6 bg-background overflow-auto relative">
             <Outlet />
           </main>
         </div>
       </div>
+      <AIAssistant />
     </SidebarProvider>
   );
 }

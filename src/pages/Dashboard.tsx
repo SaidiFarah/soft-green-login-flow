@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import PageContainer from "@/components/PageContainer";
 import KpiCard from "@/components/KpiCard";
 import StatusBadge from "@/components/StatusBadge";
+import InsightsIA from "@/components/InsightsIA";
 
 const recentMovements = [
   { id: 1, archive: "ARC-2024-0142", action: "Sortie", agent: "Ahmed B.", date: "26/02/2026 09:15", status: "En cours" },
@@ -26,12 +27,15 @@ const Dashboard = () => {
   return (
     <PageContainer title="Tableau de bord" subtitle="Vue d'ensemble du système d'archivage">
       {/* KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <KpiCard title="Total Archives" value="4,287" icon={Archive} change="+24 ce mois" changeType="up" color="primary" index={0} />
         <KpiCard title="Entrées ce mois" value="156" icon={ArrowDownRight} change="+12%" changeType="up" color="success" index={1} />
         <KpiCard title="Sorties ce mois" value="89" icon={ArrowUpRight} change="-5%" changeType="down" color="info" index={2} />
         <KpiCard title="En retard" value="7" icon={AlertTriangle} change="3 urgentes" changeType="down" color="destructive" index={3} />
       </div>
+
+      {/* Module Insights IA (3D Animations) */}
+      <InsightsIA />
 
       {/* Recent movements */}
       <motion.div
