@@ -120,10 +120,7 @@ const Utilisateurs = () => {
                       return (
                         <motion.tr key={u.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="border-t border-border hover:bg-muted/20 transition-colors">
                           <td className="table-cell">
-                            <div>
-                              <p className="font-medium text-foreground">{u.nom}</p>
-                              <p className="text-xs text-muted-foreground">{u.email}</p>
-                            </div>
+                            <p className="font-medium text-foreground">{u.nom}</p>
                           </td>
                           <td className="table-cell font-mono text-primary font-medium">{u.carteId}</td>
                           <td className="table-cell">
