@@ -96,7 +96,7 @@ const Utilisateurs = () => {
     setDialogOpen(false);
   };
 
-  const confirmDelete = () => { if (deletingId !== null) { setData((p) => p.filter((u) => u.id !== deletingId)); setDeletingId(null); setDeleteOpen(false); } };
+  
 
   return (
     <PageContainer title="Utilisateurs & Rôles" subtitle={`${data.length} utilisateurs enregistrés`} actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Ajouter</button>}>
