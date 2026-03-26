@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Plus, Pencil, Shield, UserCheck, Eye as EyeIcon, EyeOff } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+
 import PageContainer from "@/components/PageContainer";
 import SearchBar from "@/components/SearchBar";
 import StatusBadge from "@/components/StatusBadge";
