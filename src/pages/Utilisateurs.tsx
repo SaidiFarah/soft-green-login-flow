@@ -35,7 +35,7 @@ const Utilisateurs = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   
   const [editing, setEditing] = useState<User | null>(null);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  
   const [form, setForm] = useState({ nom: "", email: "", motDePasse: "", confirmMotDePasse: "", carteId: "", role: "Agent" as User["role"], statut: "Actif" as User["statut"] });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
