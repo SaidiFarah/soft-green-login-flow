@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Shield, UserCheck, Eye as EyeIcon, EyeOff } from "lucide-react";
+import { Plus, Pencil, Shield, UserCheck, Eye as EyeIcon, EyeOff } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+
 import PageContainer from "@/components/PageContainer";
 import SearchBar from "@/components/SearchBar";
 import StatusBadge from "@/components/StatusBadge";
@@ -33,9 +33,9 @@ const Utilisateurs = () => {
   const [data, setData] = useState(initial);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  
   const [editing, setEditing] = useState<User | null>(null);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  
   const [form, setForm] = useState({ nom: "", email: "", motDePasse: "", confirmMotDePasse: "", carteId: "", role: "Agent" as User["role"], statut: "Actif" as User["statut"] });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -96,7 +96,7 @@ const Utilisateurs = () => {
     setDialogOpen(false);
   };
 
-  const confirmDelete = () => { if (deletingId !== null) { setData((p) => p.filter((u) => u.id !== deletingId)); setDeletingId(null); setDeleteOpen(false); } };
+  
 
   return (
     <PageContainer title="Utilisateurs & Rôles" subtitle={`${data.length} utilisateurs enregistrés`} actions={<button onClick={openAdd} className="btn-primary"><Plus size={18} /> Ajouter</button>}>
@@ -120,10 +120,7 @@ const Utilisateurs = () => {
                       return (
                         <motion.tr key={u.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="border-t border-border hover:bg-muted/20 transition-colors">
                           <td className="table-cell">
-                            <div>
-                              <p className="font-medium text-foreground">{u.nom}</p>
-                              <p className="text-xs text-muted-foreground">{u.email}</p>
-                            </div>
+                            <p className="font-medium text-foreground">{u.nom}</p>
                           </td>
                           <td className="table-cell font-mono text-primary font-medium">{u.carteId}</td>
                           <td className="table-cell">
@@ -221,13 +218,6 @@ const Utilisateurs = () => {
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader><AlertDialogTitle>Supprimer cet utilisateur ?</AlertDialogTitle>
-            <AlertDialogDescription>Cette action est irréversible.</AlertDialogDescription></AlertDialogHeader>
-          <AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={confirmDelete} className="btn-danger">Supprimer</AlertDialogAction></AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </PageContainer>
   );
 };
