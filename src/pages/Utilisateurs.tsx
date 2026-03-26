@@ -33,7 +33,7 @@ const Utilisateurs = () => {
   const [data, setData] = useState(initial);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  
   const [editing, setEditing] = useState<User | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [form, setForm] = useState({ nom: "", email: "", motDePasse: "", confirmMotDePasse: "", carteId: "", role: "Agent" as User["role"], statut: "Actif" as User["statut"] });
