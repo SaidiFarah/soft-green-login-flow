@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Outlet, useLocation } from "react-router-dom";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { AIAssistant } from "@/components/AIAssistant";
+
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Tableau de bord",
