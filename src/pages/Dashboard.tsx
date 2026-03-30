@@ -34,8 +34,6 @@ const Dashboard = () => {
         <KpiCard title="En retard" value="7" icon={AlertTriangle} change="3 urgentes" changeType="down" color="destructive" index={3} />
       </div>
 
-      {/* Module Insights IA (3D Animations) */}
-      <InsightsIA />
 
       {/* Recent movements */}
       <motion.div
