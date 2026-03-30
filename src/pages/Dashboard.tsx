@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import PageContainer from "@/components/PageContainer";
 import KpiCard from "@/components/KpiCard";
 import StatusBadge from "@/components/StatusBadge";
-import InsightsIA from "@/components/InsightsIA";
+
 
 const recentMovements = [
   { id: 1, archive: "ARC-2024-0142", action: "Sortie", agent: "Ahmed B.", date: "26/02/2026 09:15", status: "En cours" },
