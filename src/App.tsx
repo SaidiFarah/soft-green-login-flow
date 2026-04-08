@@ -12,6 +12,7 @@ import Historique from "./pages/Historique";
 import Scanner from "./pages/Scanner";
 import Profil from "./pages/Profil";
 import Roles from "./pages/Roles";
+import ArchiveTypes from "./pages/ArchiveTypes";
 import NotFound from "./pages/NotFound";
 import { AppLayout } from "./components/AppLayout";
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/historique" element={<Historique />} />
             <Route path="/utilisateurs" element={<Utilisateurs />} />
             <Route path="/roles" element={<Roles />} />
+            <Route path="/types-archive" element={<ArchiveTypes />} />
             <Route path="/profil" element={<Profil />} />
           </Route>
           <Route path="*" element={<NotFound />} />
