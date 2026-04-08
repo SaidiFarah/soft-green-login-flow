@@ -23,7 +23,7 @@ const mainNav = [
 
 const adminNav = [
   { title: "Utilisateurs", url: "/utilisateurs", icon: Users },
-  { title: "Table des rôles", url: "/roles", icon: ShieldAlert },
+  { title: "Rôles utilisateurs", url: "/roles", icon: ShieldAlert },
 ];
 
 export function AppSidebar() {
