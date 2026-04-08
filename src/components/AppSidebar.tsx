@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Archive, MapPin, Users, History, Boxes,
-  LogOut, ShieldAlert
+  LogOut, ShieldAlert, FileType
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ const mainNav = [
   { title: "Emplacements", url: "/emplacements", icon: MapPin },
   { title: "Zones", url: "/scanner", icon: Boxes },
   { title: "Historique", url: "/historique", icon: History },
+  { title: "Types d'archive", url: "/types-archive", icon: FileType },
 ];
 
 const adminNav = [
